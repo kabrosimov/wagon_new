@@ -3,7 +3,7 @@ import './App.css';
 import AppHeader from '../appHeader/AppHeader';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import {
-    IndividualsPage,
+    // IndividualsPage,
     // ExampleWithProviders,
     WagonPage,
     // ExampleWithReactQueryProvider,
@@ -19,9 +19,10 @@ function App() {
 
                 <main>
                     <Routes>
-                        <Route path="/" element={<IndividualsPage />} />
+                        {/* <Route path="/" element={<IndividualsPage />} /> */}
                         <Route
-                            path="/individualsCRUD"
+                            // path="/individualsCRUD"
+                            path="/"
                             element={<ExampleWithLocalizationProvider />}
                         />
                         <Route path="/wagon" element={<WagonPage />} />

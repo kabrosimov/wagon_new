@@ -279,6 +279,11 @@ const Example = () => {
         createDisplayMode: 'modal', //default ('row', and 'custom' are also available)
         editDisplayMode: 'modal', //default ('row', 'cell', 'table', and 'custom' are also available)
         enableEditing: true,
+        enableGrouping: true,
+
+        enableMultiSort: true,
+
+        enableColumnOrdering: true,
         // manualFiltering: true,
 
         getRowId: row => row.id,

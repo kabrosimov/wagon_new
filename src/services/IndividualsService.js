@@ -6,7 +6,7 @@ const useIndividualsService = () => {
     const { loading, request, error, clearError } = useHttp();
 
     const getAllIndividuals = async () => {
-        const res = await request('http://172.17.32.22/pg/individual');
+        const res = await request('http://172.17.32.22/pg/individual', 'GET');
 
         if (res) {
             return res.map(_transformIndividuals);
