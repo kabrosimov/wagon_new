@@ -1,4 +1,5 @@
 // import { useHttp } from '../hooks/http.hook';
+// import { compileAsync } from 'sass';
 import { useHttp } from '../hooks/http.hooks';
 import dateFormat from 'dateformat';
 
@@ -6,7 +7,16 @@ const useIndividualsService = () => {
     const { loading, request, error, clearError } = useHttp();
 
     const getAllIndividuals = async () => {
-        const res = await request('http://172.17.32.22/pg/individual', 'GET');
+        const res = await request(
+            'http://172.17.32.22/pg/view/individual',
+            'GET',
+            null,
+            {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${sessionStorage.accessToken}`,
+                'Identity-Server-Token': 'false',
+            },
+        );
 
         if (res) {
             return res.map(_transformIndividuals);
@@ -28,6 +38,10 @@ const useIndividualsService = () => {
             'http://172.17.32.22/pg/individual',
             'POST',
             JSON.stringify(body1),
+            {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${sessionStorage.accessToken}`,
+            },
         );
         if (res) {
             return JSON.parse(res);
@@ -37,6 +51,11 @@ const useIndividualsService = () => {
         const res = await request(
             `http://172.17.32.22/pg/individual/${id}`,
             'DELETE',
+            null,
+            {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${sessionStorage.accessToken}`,
+            },
         );
         return JSON.parse(res);
     };
@@ -55,6 +74,11 @@ const useIndividualsService = () => {
             `http://172.17.32.22/pg/individual/${id}`,
             'PUT',
             JSON.stringify(body1),
+            {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${sessionStorage.accessToken}`,
+                'Identity-Server-Token': true,
+            },
         );
         return res;
     };
@@ -74,6 +98,24 @@ const useIndividualsService = () => {
     //     newDate.setFullYear(datetime.getFullYear());
     //     return newDate;
     // };
+
+    const getEmplHartman = async () => {
+        const res = await request(
+            'https://172.17.34.40:44320/api',
+            'GET',
+            null,
+            {
+                // 'Content-Type': 'application/json',
+                Version: '1.0',
+                Authorization: `Bearer ${sessionStorage.accessToken}`,
+                'x-fetch-all-individuals': '',
+            },
+        );
+
+        if (res) {
+            return res.map(_transformIndividuals);
+        }
+    };
 
     const _transformIndividuals = item => {
         // console.log(item.start_date.format('D-MM-YYYY'));
@@ -114,6 +156,7 @@ const useIndividualsService = () => {
         postIndividuals,
         deleteIndividual,
         updateIndividual,
+        getEmplHartman,
     };
 };
 
